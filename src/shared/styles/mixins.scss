@@ -1,5 +1,5 @@
-@import "func";
-@import "variables";
+@import 'func';
+@import 'variables';
 
 @mixin desktop {
   @media (max-width: $desktop) {

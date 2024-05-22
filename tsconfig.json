@@ -20,12 +20,12 @@
     "paths": {
       "@/*": ["./src/*"],
       "@public/*": ["./public/*"],
+      "@icons/*": ["./src/assets/icons/*"],
       "@components/*": ["./src/components/*"],
       "@modules/*": ["./src/modules/*"],
       "@providers/*": ["./src/providers/*"],
       "@views/*": ["./src/views/*"],
       "@ui/*": ["./src/ui/*"],
-      "@assets/*": ["./src/shared/assets/*"],
       "@atoms/*": ["./src/shared/atoms/*"],
       "@hooks/*": ["./src/shared/hooks/*"],
       "@styles/*": ["./src/shared/styles/*"],

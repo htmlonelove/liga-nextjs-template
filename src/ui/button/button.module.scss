@@ -1,6 +1,6 @@
-@use "@styles/func";
-@use "@styles/variables";
-@use "@styles/mixins";
+@use '@styles/func';
+@use '@styles/variables';
+@use '@styles/mixins';
 
 .el {
   position: relative;
@@ -27,7 +27,9 @@
     width: func.rem(24);
     height: func.rem(24);
 
-    transition: color variables.$transition, transform variables.$transition;
+    transition:
+      color variables.$transition,
+      transform variables.$transition;
   }
 
   &_sm {
