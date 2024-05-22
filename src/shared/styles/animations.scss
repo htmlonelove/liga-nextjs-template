@@ -1,0 +1,11 @@
+@use "func";
+
+@keyframes loader {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(50%);
+  }
+}

@@ -1,0 +1,64 @@
+@use "@styles/func";
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.el {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: inherit;
+  border: none;
+
+  cursor: pointer;
+  transition: variables.$transition;
+  transition-property: color, background-color;
+  outline: none;
+  user-select: none;
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  & > svg {
+    flex-shrink: 0;
+    display: block;
+    width: func.rem(24);
+    height: func.rem(24);
+
+    transition: color variables.$transition, transform variables.$transition;
+  }
+
+  &_sm {
+    height: func.rem(48);
+    padding: func.rem(12) func.rem(20);
+    border-radius: func.rem(8);
+  }
+
+  &_md {
+    height: func.rem(60);
+    padding: func.rem(20) func.rem(50);
+    border-radius: func.rem(12);
+
+    @include mixins.tablet {
+      height: func.rem(50);
+      padding: func.rem(15) func.rem(50);
+    }
+  }
+
+  &_white {
+    color: var(--color-white-default);
+    background-color: var(--color-white-default);
+
+    svg {
+      color: var(--color-grey-light);
+    }
+  }
+
+  &:disabled {
+    color: var(--color-black);
+    background-color: var(--color-grey-hover);
+    pointer-events: none;
+  }
+}
