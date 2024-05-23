@@ -7,10 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:prettier": "prettier -w **/*.{js,jsx,ts,tsx} --config .prettierrc",
+    "lint:prettier": "prettier -w src/**/*.{js,jsx,ts,tsx} --config .prettierrc",
     "lint:eslint": "eslint src/**/*.{js,ts,jsx,tsx} --fix",
     "gen:component": "node ./util/component/gen-component.mjs",
-    "images:optimize": "node ./util/images/optimize-images.mjs",
     "preinstall": "npx only-allow yarn && yarn run husky"
   },
   "dependencies": {
@@ -19,8 +18,7 @@
     "jotai": "^2.8.1",
     "next": "^14",
     "react": "^18",
-    "react-dom": "^18",
-    "sharp": "^0.33.4"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -31,6 +29,7 @@
     "chalk": "^5.3.0",
     "eslint": "^8",
     "eslint-config-next": "^14",
+    "eslint-config-prettier": "^9.1.0",
     "glob": "^10.3.16",
     "husky": "^9.0.11",
     "inquirer": "^9.2.22",

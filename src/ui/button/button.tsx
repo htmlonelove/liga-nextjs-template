@@ -16,9 +16,9 @@ export default function Button<E extends ElementType = typeof defaultElement>({
   ...props
 }: ButtonProps<E>) {
   const elClassName = classNames(
-    styles.el,
-    styles[`el_${size}`],
-    styles[`el_${colorScheme}`],
+    styles.root,
+    styles[`root_${size}`],
+    styles[`root_${colorScheme}`],
     className
   )
 
