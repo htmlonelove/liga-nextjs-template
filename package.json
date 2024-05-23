@@ -10,6 +10,7 @@
     "lint:fix": "eslint src/**/*.{js,ts,jsx,tsx} --fix",
     "prettier": "prettier -w src/**/*.{js,jsx,ts,tsx} --config .prettierrc",
     "stylelint": "stylelint src/**/*.scss",
+    "pre-commit": "next lint && prettier -w src/**/*.{js,jsx,ts,tsx} --config .prettierrc && stylelint src/**/*.scss",
     "gen:component": "node ./util/component/gen-component.mjs",
     "preinstall": "npx only-allow yarn"
   },
