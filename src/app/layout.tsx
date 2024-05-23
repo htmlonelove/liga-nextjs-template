@@ -1,8 +1,9 @@
 import { ReactNode } from 'react'
 import { Inter } from 'next/font/google'
-import '@styles/global.scss'
-import { Header } from '@modules/header'
 import { Footer } from '@modules/footer'
+import { Header } from '@modules/header'
+
+import '@styles/global.scss'
 
 const inter = Inter({ subsets: ['latin'] })
 

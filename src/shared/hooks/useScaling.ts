@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useAtom } from 'jotai'
 import { DeviceAtomType, setDeviceAtom } from '@/shared/atoms/deviceAtom'
+import { useAtom } from 'jotai'
 
 const BASE_FONT_SIZE = 16
 

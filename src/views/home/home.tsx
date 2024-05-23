@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import styles from './home.module.scss'
 
 const Home: FC = () => {

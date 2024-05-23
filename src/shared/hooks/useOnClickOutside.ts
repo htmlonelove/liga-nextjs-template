@@ -1,6 +1,6 @@
 'use client'
 
-import { RefObject, useRef, useState, useEffect, useCallback } from 'react'
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Callback<T extends Event = Event> {
   (event: T): void

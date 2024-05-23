@@ -1,8 +1,9 @@
 import { ElementType } from 'react'
-import { ButtonProps } from './button.types'
-import styles from './button.module.scss'
-import classNames from 'classnames'
 import Link from 'next/link'
+import classNames from 'classnames'
+
+import styles from './button.module.scss'
+import { ButtonProps } from './button.types'
 
 const defaultElement = 'button'
 
