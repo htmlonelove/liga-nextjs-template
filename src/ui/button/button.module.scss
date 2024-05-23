@@ -7,26 +7,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-family: inherit;
   border: none;
-
   cursor: pointer;
   transition: variables.$transition;
   transition-property: color, background-color;
   outline: none;
   user-select: none;
 
-  &:disabled {
-    pointer-events: none;
-  }
-
   & > svg {
     flex-shrink: 0;
     display: block;
     width: func.rem(24);
     height: func.rem(24);
-
     transition:
       color variables.$transition,
       transform variables.$transition;

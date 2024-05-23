@@ -1,5 +1,7 @@
-@use "@styles/func";
-@use "@styles/mixins";
-@use "@styles/variables";
-  
-.root {}
+@use '@styles/func';
+@use '@styles/mixins';
+@use '@styles/variables';
+
+.root {
+  width: 100%;
+}
