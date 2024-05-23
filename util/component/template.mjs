@@ -27,9 +27,10 @@ export const tsxTemplate = (componentName) => {
 
   return ({
     content: `import { FC } from 'react'
-import { ${interfaceName} } from './${componentName}.types'
-import styles from './${componentName}.module.scss'
 import classNames from 'classnames'
+
+import styles from './${componentName}.module.scss'
+import { ${interfaceName} } from './${componentName}.types'
 
 const ${uppercaseName}: FC<${interfaceName}> = ({
   className
