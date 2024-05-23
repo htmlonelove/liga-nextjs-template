@@ -6,7 +6,6 @@ export const scssTemplate = (componentName) => ({
 @use "@styles/variables";
   
 .root {}
-
 `,
   filename: `${componentName}.module.scss`
 })
@@ -48,7 +47,10 @@ export default ${uppercaseName}
   })
 }
 
-export const indexTemplate = (componentName) => ({
-  content: `export { default as ${camelcase(componentName, {pascalCase: true})} } from './${componentName}'`,
-  filename: `index.ts`
-})
+export const indexTemplate = (componentName, postfix = '') => {
+  const name = componentName + postfix
+  return ({
+    content: `export { default as ${camelcase(name, {pascalCase: true})} } from './${componentName}'`,
+    filename: `index.ts`
+  })
+}

@@ -1,6 +1,6 @@
 {
   "name": "liga-nextjs-template",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -40,6 +40,6 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": "^20"
+    "node": "^20.3.0"
   }
 }
