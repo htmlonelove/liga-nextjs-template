@@ -3,5 +3,32 @@
 @use '@styles/variables';
 
 .root {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: flex;
   width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: rgba(#000, 0.6);
+}
+
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px 0;
+  margin: auto;
+  background-color: #fff;
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
