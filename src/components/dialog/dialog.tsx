@@ -1,10 +1,8 @@
 import {
   FC,
   useState,
-  useRef,
-  useEffect
+  useRef
 } from 'react'
-import { createPortal } from 'react-dom'
 import classNames from 'classnames'
 
 import {
@@ -13,6 +11,7 @@ import {
   useOnClickOutside,
   useOnEscKeydown
 } from '@/shared/hooks'
+import { Portal } from '@/service/portal'
 import { Button } from '@/ui'
 
 import styles from './dialog.module.scss'
@@ -24,34 +23,21 @@ const Dialog: FC<DialogProps> = ({
 }) => {
   const rootClassName = classNames(styles.root, className)
 
-  const [mounted, setMounted] = useState<boolean>(true)
   const [rootRef, setRootRef] = useState<HTMLElement | null>(null)
 
-  const portalTargetRef = useRef<Element | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const handleClose = () => {
-    setMounted(false)
     onClose()
   }
-
-  useEffect(() => {
-    const target = document.querySelector('#modal-root')
-
-    if (target) {
-      portalTargetRef.current = target
-
-      setMounted(true)
-    }
-  }, [])
 
   useScrollLock()
   useFocusLock(rootRef)
   useOnClickOutside(contentRef, handleClose)
   useOnEscKeydown(handleClose)
 
-  return mounted && portalTargetRef.current ?
-    createPortal(
+  return (
+    <Portal selector={'#modal-root'}>
       <div
         ref={(node) => setRootRef(node)}
         className={rootClassName}
@@ -70,10 +56,9 @@ const Dialog: FC<DialogProps> = ({
             </Button>
           </div>
         </div>
-      </div>,
-      portalTargetRef.current
-    )
-    : null
+      </div>
+    </Portal>
+  )
 }
 
 export default Dialog
