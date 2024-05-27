@@ -23,7 +23,7 @@
       "@public/*": ["./public/*"],
       "@components/*": ["./src/components/*"],
       "@modules/*": ["./src/modules/*"],
-      "@providers/*": ["./src/providers/*"],
+      "@service/*": ["./src/service/*"],
       "@views/*": ["./src/views/*"],
       "@ui/*": ["./src/ui/*"],
       "@api/*": ["./src/shared/api/*"],
