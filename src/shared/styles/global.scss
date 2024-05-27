@@ -84,12 +84,3 @@ button {
     flex-grow: 1;
   }
 }
-
-#modal-root {
-  z-index: 10;
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
