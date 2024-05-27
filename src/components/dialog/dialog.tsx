@@ -25,14 +25,10 @@ const Dialog: FC<DialogProps> = ({
   const rootRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
-  const handleClose = () => {
-    onClose()
-  }
-
   useScrollLock()
   useFocusLock(rootRef)
-  useOnClickOutside(contentRef, handleClose)
-  useOnEscKeydown(handleClose)
+  useOnClickOutside(contentRef, onClose)
+  useOnEscKeydown(onClose)
 
   return (
     <Portal selector={'#modal-root'}>
@@ -49,7 +45,7 @@ const Dialog: FC<DialogProps> = ({
               Action
             </Button>
 
-            <Button onClick={handleClose}>
+            <Button onClick={onClose}>
               Close
             </Button>
           </div>
