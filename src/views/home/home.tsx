@@ -1,23 +1,28 @@
 'use client'
 
-import { FC, useState } from 'react'
+import {
+  FC,
+  useState
+} from 'react'
+import classNames from 'classnames'
 
 import { Button } from '@/ui'
-import { Dialog } from '@/components/dialog'
+import { Dialog } from '@/components'
 
 import styles from './home.module.scss'
+import { HomeProps } from './home.types'
 
-const Home: FC = () => {
+const Home: FC<HomeProps> = ({ className }) => {
+  const rootClassName = classNames(styles.root, className)
+
   const [isDialogOpened, setIsDialogOpened] = useState(false)
 
   return <>
-    <div className={styles.root}>
-      Home
-
+    <main className={rootClassName}>
       <Button onClick={() => setIsDialogOpened(true)}>
         Open dialog
       </Button>
-    </div>
+    </main>
 
     {
       isDialogOpened && (

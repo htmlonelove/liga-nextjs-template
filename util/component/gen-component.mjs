@@ -3,6 +3,7 @@ import inquirer from 'inquirer'
 import inquirerFileTreeSelection from 'inquirer-file-tree-selection-prompt'
 import camelcase from 'camelcase'
 import {indexTemplate, tsTemplate, tsxTemplate, scssTemplate} from './template.mjs'
+import {createIndex} from './gen-index.mjs'
 import path from 'path'
 import chalk from 'chalk'
 
@@ -34,16 +35,17 @@ inquirer
   ])
   .then((answers) => {
     const { componentName, componentFolder } = answers
-    const isViews = componentFolder.split(path.sep).pop() === 'views'
+    const dirName = componentFolder.split(path.sep).pop()
+    const camelCaseName = camelcase(componentName)
+    const isView = dirName === 'views'
+    const isModule = dirName === 'modules'
 
-    console.log(chalk.greenBright('📜 Используем шаблон компонента с названием: ' + chalk.whiteBright(camelcase(componentName))))
+    console.log(chalk.greenBright('📜 Используем шаблон компонента с названием: ' + chalk.whiteBright(camelCaseName)))
 
-    const componentDirectory = `${componentFolder}/${camelcase(
-      componentName
-    )}`
+    const componentDirectory = `${componentFolder}/${camelCaseName}`
 
     if (fs.existsSync(componentDirectory)) {
-      console.error(chalk.red(`❌ Компонет ${chalk.whiteBright(camelcase(componentName))} уже существует`))
+      console.error(chalk.red(`❌ Компонет ${chalk.whiteBright(camelCaseName)} уже существует`))
       process.exit(1)
     }
 
@@ -54,10 +56,15 @@ inquirer
     }
 
     const generatedTemplates = [tsTemplate, scssTemplate, tsxTemplate, indexTemplate].map((template) => {
-      const camelCaseName = camelcase(componentName)
-      const isIndexTemplate = template.name === 'indexTemplate'
-      const postfix = isViews ? 'view' : ''
-      return isIndexTemplate ? template(camelCaseName, postfix) : template(camelCaseName)
+      if (isView) {
+        switch (template.name) {
+          case 'tsxTemplate':
+            return template(camelCaseName, true)
+          case 'indexTemplate':
+            return template(camelCaseName, 'View')
+        }
+      }
+      return template(camelCaseName)
     })
 
     generatedTemplates.forEach((template) => {
@@ -67,6 +74,10 @@ inquirer
       )
     })
 
-    const dirName = `./src/${componentFolder.split(path.sep).pop()}`
-    console.log(`✅  ${chalk.greenBright(`Создан компонент`)} ${chalk.whiteBright(camelcase(componentName))} ${chalk.greenBright('в директории')} ${chalk.whiteBright(dirName)}`)
+    if (!isView && !isModule) {
+      createIndex(componentFolder, componentName)
+    }
+
+    const dirPath = `./src/${dirName}`
+    console.log(`✅  ${chalk.greenBright(`Создан компонент`)} ${chalk.whiteBright(camelcase(componentName))} ${chalk.greenBright('в директории')} ${chalk.whiteBright(dirPath)}`)
   })
