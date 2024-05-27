@@ -1,4 +1,7 @@
-import { useEffect } from 'react'
+import {
+  MutableRefObject,
+  useEffect
+} from 'react'
 
 import { KeyCode } from '@/shared/const'
 
@@ -15,27 +18,29 @@ const SELECTORS = [
   '[tabindex]:not([tabindex^="-1"])'
 ].join(', ')
 
-const useFocusLock = (locker: HTMLElement | null) => {
+const useFocusLock = (lockerRef: MutableRefObject<HTMLDivElement | null>) => {
   useEffect(() => {
     const starter = document.activeElement as HTMLElement
 
     const onDocumentKeydown = (evt: KeyboardEvent) => {
-      if (locker && evt.key === KeyCode.Tab) {
-        const focusableItems = Array.from(locker.querySelectorAll(SELECTORS)).filter((item) => getComputedStyle(item).display !== 'none') as HTMLElement[]
-  
+      if (lockerRef.current && evt.key === KeyCode.Tab) {
+        const focusableItems = Array.from(
+          lockerRef.current.querySelectorAll(SELECTORS)
+        ).filter((item) => getComputedStyle(item).display !== 'none') as HTMLElement[]
+
         if (!focusableItems.length) {
           return
         }
-    
-        if (locker.contains(document.activeElement)) {
+
+        if (lockerRef.current.contains(document.activeElement)) {
           const focusedItemIndex = focusableItems.indexOf(document.activeElement as HTMLElement)
           const lastFocusableItemIndex = focusableItems.length - 1
-    
+
           if (focusedItemIndex === lastFocusableItemIndex && !evt.shiftKey) {
             focusableItems[0].focus()
             evt.preventDefault()
           }
-    
+
           if (focusedItemIndex === 0 && evt.shiftKey) {
             focusableItems[lastFocusableItemIndex].focus()
             evt.preventDefault()
@@ -56,7 +61,7 @@ const useFocusLock = (locker: HTMLElement | null) => {
         starter.focus()
       }
     }
-  }, [locker])
+  }, [lockerRef])
 }
 
 export default useFocusLock

@@ -1,6 +1,5 @@
 import {
   FC,
-  useState,
   useRef
 } from 'react'
 import classNames from 'classnames'
@@ -23,8 +22,7 @@ const Dialog: FC<DialogProps> = ({
 }) => {
   const rootClassName = classNames(styles.root, className)
 
-  const [rootRef, setRootRef] = useState<HTMLElement | null>(null)
-
+  const rootRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
   const handleClose = () => {
@@ -39,7 +37,7 @@ const Dialog: FC<DialogProps> = ({
   return (
     <Portal selector={'#modal-root'}>
       <div
-        ref={(node) => setRootRef(node)}
+        ref={rootRef}
         className={rootClassName}
       >
         <div
