@@ -1,0 +1,33 @@
+@use '@styles/func';
+@use '@styles/mixins';
+@use '@styles/variables';
+
+.root {
+  width: 100%;
+  height: func.rem(60);
+  padding: func.rem(20);
+  font-family: inherit;
+  color: var(--color-black-default);
+  background-color: var(--color-white-default);
+  border: none;
+  border-radius: func.rem(8);
+  outline: none;
+  transition: variables.$transition;
+  transition-property: border-color, background-color;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  @include mixins.tablet {
+    height: func.rem(50);
+    padding: func.rem(15) func.rem(20);
+    border-radius: func.rem(8);
+  }
+}

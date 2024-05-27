@@ -21,9 +21,10 @@ export const tsTemplate = (componentName) => {
   })
 }
 
-export const tsxTemplate = (componentName) => {
-  const uppercaseName = camelcase(componentName, {pascalCase: true})
+export const tsxTemplate = (componentName, isView) => {
+  const uppercaseName = camelcase(componentName, { pascalCase: true })
   const interfaceName = `${uppercaseName}Props`
+  const component = isView ? '<main className={rootClassName}></main>' : '<div className={rootClassName}></div>'
 
   return ({
     content: `import { FC } from 'react'
@@ -38,7 +39,7 @@ const ${uppercaseName}: FC<${interfaceName}> = ({
   const rootClassName = classNames(styles.root, className)
   
   return (
-    <div className={rootClassName}></div>
+    ${component}
   )
 }
 

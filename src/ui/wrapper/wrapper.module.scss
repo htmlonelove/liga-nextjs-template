@@ -1,0 +1,10 @@
+@use '@styles/func';
+@use '@styles/mixins';
+@use '@styles/variables';
+
+.root {
+  max-width: func.rem(1440);
+  padding-right: func.rem(20);
+  padding-left: func.rem(20);
+  margin: 0 auto;
+}
