@@ -1,13 +1,17 @@
-import { FC, useEffect, useRef, useState } from 'react'
 import {
+  FC,
+  useRef
+} from 'react'
+import classNames from 'classnames'
+
+import {
+  useScrollLock,
   useFocusLock,
   useOnClickOutside,
-  useOnEscKeydown,
-  useScrollLock
+  useOnEscKeydown
 } from '@/shared/hooks'
+import { Portal } from '@/service/portal'
 import { Button } from '@/ui'
-import classNames from 'classnames'
-import { createPortal } from 'react-dom'
 
 import styles from './dialog.module.scss'
 import { DialogProps } from './dialog.types'
@@ -15,46 +19,37 @@ import { DialogProps } from './dialog.types'
 const Dialog: FC<DialogProps> = ({ className, onClose }) => {
   const rootClassName = classNames(styles.root, className)
 
-  const [mounted, setMounted] = useState<boolean>(true)
-  const [rootRef, setRootRef] = useState<HTMLElement | null>(null)
-
-  const portalTargetRef = useRef<Element | null>(null)
+  const rootRef = useRef<HTMLDivElement | null>(null)
   const contentRef = useRef<HTMLDivElement | null>(null)
-
-  const handleClose = () => {
-    setMounted(false)
-    onClose()
-  }
-
-  useEffect(() => {
-    const target = document.querySelector('#modal-root')
-
-    if (target) {
-      portalTargetRef.current = target
-
-      setMounted(true)
-    }
-  }, [])
 
   useScrollLock()
   useFocusLock(rootRef)
-  useOnClickOutside(contentRef, handleClose)
-  useOnEscKeydown(handleClose)
+  useOnClickOutside(contentRef, onClose)
+  useOnEscKeydown(onClose)
 
-  return mounted && portalTargetRef.current
-    ? createPortal(
-        <div ref={(node) => setRootRef(node)} className={rootClassName}>
-          <div ref={contentRef} className={styles.content}>
-            <div className={styles.buttons}>
-              <Button>Action</Button>
+  return (
+    <Portal selector={'#modal-root'}>
+      <div
+        ref={rootRef}
+        className={rootClassName}
+      >
+        <div
+          ref={contentRef}
+          className={styles.content}
+        >
+          <div className={styles.buttons}>
+            <Button>
+              Action
+            </Button>
 
-              <Button onClick={handleClose}>Close</Button>
-            </div>
+            <Button onClick={onClose}>
+              Close
+            </Button>
           </div>
-        </div>,
-        portalTargetRef.current
-      )
-    : null
+        </div>
+      </div>
+    </Portal>
+  )
 }
 
 export default Dialog
