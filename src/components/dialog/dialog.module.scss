@@ -11,7 +11,7 @@
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  padding: 10px;
+  padding: func.rem(10);
   background-color: rgba(#000, 0.6);
 }
 
@@ -20,8 +20,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px;
-  padding: 20px 0;
+  max-width: func.rem(400);
+  padding: func.rem(20) 0;
   margin: auto;
   background-color: #fff;
 }
@@ -30,5 +30,5 @@
 .buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: func.rem(20);
 }
