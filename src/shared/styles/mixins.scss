@@ -49,6 +49,52 @@
   }
 }
 
+@mixin h1 {
+  font-weight: 400;
+  font-size: rem(96);
+  line-height: 1.04;
+
+  @include tablet-small {
+    font-size: rem(38);
+  }
+}
+
+@mixin h2 {
+  font-weight: 400;
+  font-size: rem(80);
+  line-height: 0.9;
+
+  @include tablet-small {
+    font-size: rem(32);
+  }
+}
+
+@mixin h3 {
+  font-weight: 400;
+  font-size: rem(30);
+  line-height: 1.33;
+
+  @include tablet-small {
+    font-size: rem(24);
+  }
+}
+
+@mixin h4 {
+  font-weight: 400;
+  font-size: rem(20);
+  line-height: 1.2;
+
+  @include tablet-small {
+    font-size: rem(18);
+  }
+}
+
+@mixin text {
+  font-weight: 400;
+  font-size: rem(16);
+  line-height: rem(20);
+}
+
 @mixin reset-btn {
   font-family: inherit;
   padding: 0;

@@ -3,8 +3,13 @@
 @use '@styles/variables';
 
 .root {
-  max-width: func.rem(1440);
-  padding-right: func.rem(20);
-  padding-left: func.rem(20);
+  max-width: func.rem(1568);
+  padding-right: func.rem(64);
+  padding-left: func.rem(64);
   margin: 0 auto;
+
+  @include mixins.tablet-small {
+    padding-right: func.rem(20);
+    padding-left: func.rem(20);
+  }
 }

@@ -2,5 +2,30 @@
 @use '@styles/mixins';
 
 .root {
+  position: relative;
   width: 100%;
+  background-color: var(--color-white-default);
+
+  &::after {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: max(#{func.rem(2)}, 2px);
+    background-color: var(--color-blue-border);
+  }
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: func.rem(32);
+  padding-bottom: func.rem(32);
 }

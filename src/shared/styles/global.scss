@@ -5,6 +5,10 @@
   --color-white-default: #fff;
   --color-black-default: #000;
   --color-transparent: rgba(255 255 255 / 0%);
+
+  // project colors
+  --color-blue: #2c39f2;
+  --color-blue-border: #dadcfa;
 }
 
 * {
@@ -27,6 +31,7 @@ body {
 }
 
 body {
+  @include text;
   color: var(--color-black-default);
   overflow-x: hidden;
 }
@@ -34,6 +39,14 @@ body {
 a {
   color: currentcolor;
   text-decoration: none;
+  transition: opacity $transition;
+
+  @include desktop-only {
+    &:hover,
+    &:focus-visible {
+      opacity: 0.7;
+    }
+  }
 }
 
 ul,
@@ -54,12 +67,22 @@ blockquote {
   margin: 0;
 }
 
-.button {
+button {
   @include reset-btn;
 }
 
 .visually-hidden {
   @include visually-hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+
+  main {
+    flex-grow: 1;
+  }
 }
 
 #modal-root {

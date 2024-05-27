@@ -4,4 +4,23 @@
 
 .root {
   width: 100%;
+  padding: func.rem(40) 0;
+}
+
+.title {
+  color: var(--color-blue);
+  text-align: center;
+  margin: 0 auto func.rem(32);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-width: func.rem(512);
+  height: auto;
+  margin: 0 auto;
+
+  @include mixins.tablet-small {
+    max-width: func.rem(400);
+  }
 }

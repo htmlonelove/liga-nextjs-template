@@ -1,0 +1,26 @@
+@use '@styles/func';
+@use '@styles/mixins';
+
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  margin-right: func.rem(12);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.link {
+  display: block;
+  width: func.rem(24);
+  line-height: 0;
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}

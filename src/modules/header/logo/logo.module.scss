@@ -1,0 +1,12 @@
+@use '@styles/func';
+@use '@styles/mixins';
+
+.root {
+  display: block;
+  line-height: 0;
+
+  svg {
+    width: func.rem(110);
+    height: func.rem(24);
+  }
+}
