@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { ProviderLayout } from '@/service/providerLayout'
 import { Footer } from '@modules/footer'
 import { Header } from '@modules/header'
 
@@ -39,12 +40,15 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={font.className}>
-        <div id="root">
-          <Header />
-          {children}
-          <Footer />
-        </div>
-        <div id="modal-root" />
+        <ProviderLayout>
+          <div id="root">
+            <Header />
+            {children}
+            <Footer />
+          </div>
+
+          <div id="modal-root" />
+        </ProviderLayout>
       </body>
     </html>
   )
