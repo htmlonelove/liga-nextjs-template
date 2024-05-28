@@ -65,7 +65,7 @@ const getScaleFontSize = (
   return size.toFixed(2)
 }
 
-const useScaling = () => {
+export const useScaling = () => {
   const [, setDevice] = useAtom(deviceWriteAtom)
 
   useEffect(() => {
@@ -107,5 +107,3 @@ const useScaling = () => {
     return () => window.removeEventListener('resize', handleWindowResize)
   }, [])
 }
-
-export default useScaling
