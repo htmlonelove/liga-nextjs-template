@@ -1,12 +1,16 @@
 import { atom } from 'jotai'
 
-type DeviceAtomType = 'mobile' | 'tablet' | 'desktop'
+export type DeviceAtomType = 'mobile' | 'tablet' | 'desktop'
 
 const deviceAtom = atom<DeviceAtomType | undefined>(undefined)
 
-export const setDeviceAtom = atom(null, (get, set, update: DeviceAtomType) => {
-  set(deviceAtom, update)
-})
+export const deviceWriteAtom = atom(
+  null,
+  (get, set, update: DeviceAtomType) => {
+    set(deviceAtom, update)
+  }
+)
+export const deviceReadAtom = atom((get) => get(deviceAtom))
 
 export const isDesktopAtom = atom((get) => get(deviceAtom) === 'desktop')
 export const isTabletAtom = atom((get) => get(deviceAtom) === 'tablet')

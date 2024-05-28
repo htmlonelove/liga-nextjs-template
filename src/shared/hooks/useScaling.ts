@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { DeviceAtomType, setDeviceAtom } from '@/shared/atoms/deviceAtom'
+import { DeviceAtomType, deviceWriteAtom } from '@atoms/deviceAtom'
 import { useAtom } from 'jotai'
 
 const BASE_FONT_SIZE = 16
@@ -66,7 +66,7 @@ const getScaleFontSize = (
 }
 
 const useScaling = () => {
-  const [, setDevice] = useAtom(setDeviceAtom)
+  const [, setDevice] = useAtom(deviceWriteAtom)
 
   useEffect(() => {
     const handleWindowResize = () => {
