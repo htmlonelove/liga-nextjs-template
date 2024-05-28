@@ -7,9 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
-    "prettier": "prettier -w src/**/*.{ts,tsx} --config .prettierrc",
     "stylelint": "stylelint src/**/*.scss",
+    "prettier": "prettier -w src/**/*.{ts,tsx} --config .prettierrc",
     "check": "next lint && prettier -w src/**/*.{ts,tsx} --config .prettierrc && stylelint src/**/*.scss",
     "gen:component": "node ./util/component/gen-component.mjs",
     "preinstall": "npx only-allow yarn"
@@ -48,6 +47,6 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": "^20.3.0"
+    "node": "^20"
   }
 }
