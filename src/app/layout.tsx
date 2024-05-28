@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
-import { ProviderLayout } from '@/service/providerLayout'
 import { Footer } from '@modules/footer'
 import { Header } from '@modules/header'
 
 import '@styles/global.scss'
 
 import localFont from 'next/font/local'
+import { Provider } from '@service/provider'
 
 const font = localFont({
   src: [
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={font.className}>
-        <ProviderLayout>
+        <Provider>
           <div id="root">
             <Header />
             {children}
@@ -48,7 +48,7 @@ export default function RootLayout({
           </div>
 
           <div id="modal-root" />
-        </ProviderLayout>
+        </Provider>
       </body>
     </html>
   )

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Wrapper } from '@/ui'
 import classNames from 'classnames'
 
-import { version } from '../../../package.json'
+import config from '../../../package.json'
 import styles from './header.module.scss'
 import { HeaderProps } from './header.types'
 import Logo from './logo'
@@ -13,7 +13,7 @@ const Header: FC<HeaderProps> = ({ className }) => {
     <header className={headerClassName}>
       <Wrapper className={styles.wrapper}>
         <Logo />
-        <strong>v {version}</strong>
+        <strong>v {config.version}</strong>
       </Wrapper>
     </header>
   )

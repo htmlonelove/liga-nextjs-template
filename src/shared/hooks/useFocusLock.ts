@@ -1,8 +1,4 @@
-import {
-  MutableRefObject,
-  useEffect
-} from 'react'
-
+import { MutableRefObject, useEffect } from 'react'
 import { KeyCode } from '@/shared/const'
 
 const SELECTORS = [
@@ -26,14 +22,18 @@ const useFocusLock = (lockerRef: MutableRefObject<HTMLDivElement | null>) => {
       if (lockerRef.current && evt.key === KeyCode.Tab) {
         const focusableItems = Array.from(
           lockerRef.current.querySelectorAll(SELECTORS)
-        ).filter((item) => getComputedStyle(item).display !== 'none') as HTMLElement[]
+        ).filter(
+          (item) => getComputedStyle(item).display !== 'none'
+        ) as HTMLElement[]
 
         if (!focusableItems.length) {
           return
         }
 
         if (lockerRef.current.contains(document.activeElement)) {
-          const focusedItemIndex = focusableItems.indexOf(document.activeElement as HTMLElement)
+          const focusedItemIndex = focusableItems.indexOf(
+            document.activeElement as HTMLElement
+          )
           const lastFocusableItemIndex = focusableItems.length - 1
 
           if (focusedItemIndex === lastFocusableItemIndex && !evt.shiftKey) {

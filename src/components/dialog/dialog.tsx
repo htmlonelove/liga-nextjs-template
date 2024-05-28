@@ -1,17 +1,13 @@
+import { FC, useRef } from 'react'
+import { Portal } from '@/service/portal'
 import {
-  FC,
-  useRef
-} from 'react'
-import classNames from 'classnames'
-
-import {
-  useScrollLock,
   useFocusLock,
   useOnClickOutside,
-  useOnEscKeydown
+  useOnEscKeydown,
+  useScrollLock
 } from '@/shared/hooks'
-import { Portal } from '@/service/portal'
 import { Button } from '@/ui'
+import classNames from 'classnames'
 
 import styles from './dialog.module.scss'
 import { DialogProps } from './dialog.types'
@@ -29,22 +25,12 @@ const Dialog: FC<DialogProps> = ({ className, onClose }) => {
 
   return (
     <Portal selector={'#modal-root'}>
-      <div
-        ref={rootRef}
-        className={rootClassName}
-      >
-        <div
-          ref={contentRef}
-          className={styles.content}
-        >
+      <div ref={rootRef} className={rootClassName}>
+        <div ref={contentRef} className={styles.content}>
           <div className={styles.buttons}>
-            <Button>
-              Action
-            </Button>
+            <Button>Action</Button>
 
-            <Button onClick={onClose}>
-              Close
-            </Button>
+            <Button onClick={onClose}>Close</Button>
           </div>
         </div>
       </div>
