@@ -1,6 +1,6 @@
-export { default as useDebounce } from './useDebounce'
-export { default as useFocusLock } from './useFocusLock'
-export { default as useOnClickOutside } from './useOnClickOutside'
-export { default as useOnEscKeydown } from './useOnEscKeydown'
-export { default as useScaling } from './useScaling'
-export { default as useScrollLock } from './useScrollLock'
+export { useOnClickOutside, useScrollLock } from 'usehooks-ts'
+
+export { useDebounce } from './useDebounce'
+export { useFocusLock } from './useFocusLock'
+export { useOnEscKeydown } from './useOnEscKeydown'
+export { useScaling } from './useScaling'

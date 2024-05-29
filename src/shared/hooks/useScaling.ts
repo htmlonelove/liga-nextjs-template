@@ -1,111 +1,83 @@
 'use client'
 
 import { useEffect } from 'react'
+import type { ScalingBreakpoint } from '@/shared/const'
 import { DeviceAtomType, deviceWriteAtom } from '@atoms/deviceAtom'
-import { useAtom } from 'jotai'
+import { useSetAtom } from 'jotai'
 
-const BASE_FONT_SIZE = 16
-
-const deviceSize = {
-  mobileS: 320,
-  mobileM: 390,
-  mobileL: 480,
-  tabletS: 767,
-  tablet: 1023,
-  laptop: 1599,
-  desktop: 1600,
-  fhd: 1920,
-  uhd: 2560
-}
-
-const breakpointsArray = [
-  {
-    size: deviceSize.laptop,
-    noScaleSize: deviceSize.laptop
-  },
-  {
-    size: deviceSize.tablet,
-    upscaleSize: deviceSize.laptop
-  },
-  {
-    size: deviceSize.tabletS
-  },
-  {
-    size: deviceSize.mobileM
+const getDeviceType = (
+  windowWidth: number,
+  breakpoints: { tablet: number; desktop: number }
+): DeviceAtomType => {
+  if (windowWidth < breakpoints.tablet) {
+    return 'mobile'
   }
-]
+
+  if (windowWidth < breakpoints.desktop) {
+    return 'tablet'
+  }
+
+  return 'desktop'
+}
 
 const getScaleFontSize = (
   windowWidth: number,
-  minSize?: number,
-  maxSize?: number
+  breakpoints: ScalingBreakpoint[]
 ) => {
   const currentBreakpoint =
-    breakpointsArray.find((item) => item.size < windowWidth) ||
-    breakpointsArray[breakpointsArray.length - 1]
-  const contentWidth = currentBreakpoint.noScaleSize
-    ? currentBreakpoint.size
-    : windowWidth <= deviceSize.uhd
-      ? windowWidth
-      : deviceSize.uhd
+    breakpoints.find((breakpoint) =>
+      breakpoint.size.min
+        ? windowWidth >= breakpoint.size.min
+        : windowWidth >= breakpoint.size.base
+    ) || breakpoints[breakpoints.length - 1]
 
-  const breakpointSize =
-    currentBreakpoint.noScaleSize ||
-    currentBreakpoint.upscaleSize ||
-    currentBreakpoint.size
+  const minFontSize = currentBreakpoint.fontSize?.min
+  const maxFontSize = currentBreakpoint.fontSize?.max
 
-  let size = (contentWidth / breakpointSize) * BASE_FONT_SIZE
-  if (minSize) {
-    size = size < minSize ? minSize : size
-  }
-  if (maxSize) {
-    size = size < maxSize ? size : maxSize
+  let size =
+    (windowWidth / currentBreakpoint.size.base) *
+    currentBreakpoint.fontSize.base
+
+  if (minFontSize) {
+    size = size > minFontSize ? size : minFontSize
   }
 
-  return size.toFixed(2)
+  if (maxFontSize) {
+    size = size < maxFontSize ? size : maxFontSize
+  }
+
+  return Number(size.toFixed(2))
 }
 
-const useScaling = () => {
-  const [, setDevice] = useAtom(deviceWriteAtom)
+export const useScaling = ({
+  deviceBreakpoints,
+  scalingBreakpoints
+}: {
+  deviceBreakpoints: { tablet: number; desktop: number }
+  scalingBreakpoints: ScalingBreakpoint[]
+}) => {
+  const setDevice = useSetAtom(deviceWriteAtom)
 
   useEffect(() => {
     const handleWindowResize = () => {
+      if (!document || !window) {
+        return
+      }
+
+      const htmlElement = document.documentElement
+
       const viewportWidth = window.innerWidth
-      const htmlElement = document.querySelector('html')
-      const vh = window.innerHeight * 0.01
-      let device: DeviceAtomType = 'desktop'
+      const viewportHeight = window.innerHeight
 
-      if (window.innerWidth <= deviceSize.tabletS) {
-        device = 'mobile'
-      } else if (window.innerWidth <= deviceSize.tablet) {
-        device = 'tablet'
-      }
+      htmlElement.style.fontSize = `${getScaleFontSize(viewportWidth, scalingBreakpoints)}px`
+      htmlElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`)
 
-      let maxSize = device === 'desktop' ? 16 : undefined
-
-      if (
-        device !== 'desktop' &&
-        screen.orientation?.type === 'landscape-primary'
-      ) {
-        maxSize = 14
-      }
-
-      if (htmlElement) {
-        const globalFontSize =
-          viewportWidth !== null
-            ? Number(getScaleFontSize(viewportWidth, 13, maxSize))
-            : BASE_FONT_SIZE
-        htmlElement.style.fontSize = `${globalFontSize}px`
-      }
-
-      setDevice(device)
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      setDevice(getDeviceType(viewportWidth, deviceBreakpoints))
     }
 
-    window.addEventListener('resize', handleWindowResize)
     handleWindowResize()
-    return () => window.removeEventListener('resize', handleWindowResize)
-  }, [])
-}
+    window.addEventListener('resize', handleWindowResize)
 
-export default useScaling
+    return () => window.removeEventListener('resize', handleWindowResize)
+  }, [deviceBreakpoints, scalingBreakpoints, setDevice])
+}

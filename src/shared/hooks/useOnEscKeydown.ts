@@ -22,5 +22,3 @@ export const useOnEscKeydown = (handler: Handler) => {
     }
   }, [])
 }
-
-export default useOnEscKeydown
