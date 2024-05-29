@@ -2,20 +2,19 @@
 
 import { FC, ReactNode } from 'react'
 import { DeviceSize, SCALING_BREAKPOINTS } from '@/shared/const'
+import { useDeviceDetect, useScaling, useVH } from '@/shared/hooks'
 import { isDeviceAtom } from '@atoms/deviceAtom'
-import { useScaling } from '@hooks/index'
 import { Provider as JotaiProvider, useAtom } from 'jotai'
 
 const ScalingLayout: FC<{ children: ReactNode }> = ({ children }) => {
   const [isDeviceDetected] = useAtom(isDeviceAtom)
 
-  useScaling({
-    deviceBreakpoints: {
-      tablet: DeviceSize.Tablet.PORTRAIT,
-      desktop: DeviceSize.Desktop.SMALL
-    },
-    scalingBreakpoints: SCALING_BREAKPOINTS
+  useDeviceDetect({
+    tablet: DeviceSize.Tablet.PORTRAIT,
+    desktop: DeviceSize.Desktop.SMALL
   })
+  useScaling(SCALING_BREAKPOINTS)
+  useVH()
 
   return isDeviceDetected ? children : <></>
 }
