@@ -16,9 +16,10 @@ const Home: FC<HomeProps> = ({ className }) => {
           Next.js template
         </Heading>
         <Image
-          src="./images/sticker-dino.png"
+          src="/images/sticker-dino.png"
           width={512}
           height={492}
+          quality={85}
           alt="Ligazavr"
           className={styles.image}
         />

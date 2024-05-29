@@ -9,7 +9,7 @@
     "lint": "next lint",
     "stylelint": "stylelint src/**/*.scss",
     "prettier": "prettier -w src/**/*.{ts,tsx} --config .prettierrc",
-    "check": "next lint && prettier -w src/**/*.{ts,tsx} --config .prettierrc && stylelint src/**/*.scss",
+    "check": "prettier -w src/**/*.{ts,tsx} --config .prettierrc && next lint && stylelint src/**/*.scss",
     "gen:component": "node ./util/component/gen-component.mjs",
     "preinstall": "npx only-allow yarn"
   },
