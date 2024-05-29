@@ -14,7 +14,7 @@ const SELECTORS = [
   '[tabindex]:not([tabindex^="-1"])'
 ].join(', ')
 
-const useFocusLock = (lockerRef: MutableRefObject<HTMLDivElement | null>) => {
+export const useFocusLock = (lockerRef: MutableRefObject<HTMLDivElement | null>) => {
   useEffect(() => {
     const starter = document.activeElement as HTMLElement
 
@@ -63,5 +63,3 @@ const useFocusLock = (lockerRef: MutableRefObject<HTMLDivElement | null>) => {
     }
   }, [lockerRef])
 }
-
-export default useFocusLock
