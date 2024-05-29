@@ -1,63 +1,29 @@
 'use client'
 
 import { useEffect } from 'react'
+import type { ScalingBreakpoint } from '@/shared/const'
 import { DeviceAtomType, deviceWriteAtom } from '@atoms/deviceAtom'
 import { useSetAtom } from 'jotai'
 
-const BASE_FONT_SIZE = 16
-
-const deviceSize = {
-  mobile: {
-    small: 320,
-    medium: 375,
-    large: 425
-  },
-  tablet: {
-    portrait: 768,
-    landscape: 1024
-  },
-  desktop: {
-    small: 1280,
-    medium: 1440,
-    large: 1920
-  }
-}
-
-const breakpoints: {
-  size: { min?: number; base: number }
-  fontSize?: { min?: number; max?: number }
-}[] = [
-  {
-    size: { min: deviceSize.desktop.small, base: deviceSize.desktop.medium },
-    fontSize: { min: 14, max: 16 }
-  },
-  {
-    size: { base: deviceSize.tablet.landscape },
-    fontSize: { max: 18 }
-  },
-  {
-    size: { base: deviceSize.tablet.portrait },
-    fontSize: { max: 18 }
-  },
-  {
-    size: { base: deviceSize.mobile.medium },
-    fontSize: { min: 14 }
-  }
-]
-
-const getDeviceType = (windowWidth: number): DeviceAtomType => {
-  if (windowWidth <= deviceSize.tablet.portrait) {
+const getDeviceType = (
+  windowWidth: number,
+  breakpoints: { tablet: number; desktop: number }
+): DeviceAtomType => {
+  if (windowWidth < breakpoints.tablet) {
     return 'mobile'
   }
 
-  if (windowWidth <= deviceSize.tablet.landscape) {
+  if (windowWidth < breakpoints.desktop) {
     return 'tablet'
   }
 
   return 'desktop'
 }
 
-const getScaleFontSize = (windowWidth: number) => {
+const getScaleFontSize = (
+  windowWidth: number,
+  breakpoints: ScalingBreakpoint[]
+) => {
   const currentBreakpoint =
     breakpoints.find((breakpoint) =>
       breakpoint.size.min
@@ -68,7 +34,9 @@ const getScaleFontSize = (windowWidth: number) => {
   const minFontSize = currentBreakpoint.fontSize?.min
   const maxFontSize = currentBreakpoint.fontSize?.max
 
-  let size = (windowWidth / currentBreakpoint.size.base) * BASE_FONT_SIZE
+  let size =
+    (windowWidth / currentBreakpoint.size.base) *
+    currentBreakpoint.fontSize.base
 
   if (minFontSize) {
     size = size > minFontSize ? size : minFontSize
@@ -81,7 +49,13 @@ const getScaleFontSize = (windowWidth: number) => {
   return Number(size.toFixed(2))
 }
 
-export const useScaling = () => {
+export const useScaling = ({
+  deviceBreakpoints,
+  scalingBreakpoints
+}: {
+  deviceBreakpoints: { tablet: number; desktop: number }
+  scalingBreakpoints: ScalingBreakpoint[]
+}) => {
   const setDevice = useSetAtom(deviceWriteAtom)
 
   useEffect(() => {
@@ -95,15 +69,15 @@ export const useScaling = () => {
       const viewportWidth = window.innerWidth
       const viewportHeight = window.innerHeight
 
-      htmlElement.style.fontSize = `${getScaleFontSize(viewportWidth)}px`
+      htmlElement.style.fontSize = `${getScaleFontSize(viewportWidth, scalingBreakpoints)}px`
       htmlElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`)
 
-      setDevice(getDeviceType(viewportWidth))
+      setDevice(getDeviceType(viewportWidth, deviceBreakpoints))
     }
 
     handleWindowResize()
     window.addEventListener('resize', handleWindowResize)
 
     return () => window.removeEventListener('resize', handleWindowResize)
-  }, [setDevice])
+  }, [deviceBreakpoints, scalingBreakpoints, setDevice])
 }
