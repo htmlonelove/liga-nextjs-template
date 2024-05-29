@@ -1,6 +1,4 @@
-[![Liga A](./public/icons/logo.svg)](https://ligaa.agency/)
-
-![Tech stack](https://skillicons.dev/icons?i=react,next,ts,sass)
+[![Liga A](./public/images/banner.jpg)](https://ligaa.agency/)
 
 # Гайд по работе
 
