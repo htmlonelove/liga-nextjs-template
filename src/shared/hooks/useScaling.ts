@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useSetAtom } from 'jotai'
 import { DeviceAtomType, deviceWriteAtom } from '@atoms/deviceAtom'
+import { useSetAtom } from 'jotai'
 
 const BASE_FONT_SIZE = 16
 
@@ -24,19 +24,22 @@ const deviceSize = {
 }
 
 const breakpoints: {
-  size: { min?: number, base: number },
-  fontSize?: { min?: number, max?: number }
+  size: { min?: number; base: number }
+  fontSize?: { min?: number; max?: number }
 }[] = [
   {
     size: { min: deviceSize.desktop.small, base: deviceSize.desktop.medium },
     fontSize: { min: 14, max: 16 }
-  }, {
+  },
+  {
     size: { base: deviceSize.tablet.landscape },
     fontSize: { max: 18 }
-  }, {
+  },
+  {
     size: { base: deviceSize.tablet.portrait },
     fontSize: { max: 18 }
-  }, {
+  },
+  {
     size: { base: deviceSize.mobile.medium },
     fontSize: { min: 14 }
   }
@@ -56,10 +59,11 @@ const getDeviceType = (windowWidth: number): DeviceAtomType => {
 
 const getScaleFontSize = (windowWidth: number) => {
   const currentBreakpoint =
-    breakpoints.find(
-      (breakpoint) => breakpoint.size.min ? windowWidth >= breakpoint.size.min : windowWidth >= breakpoint.size.base
-    ) ||
-    breakpoints[breakpoints.length - 1]
+    breakpoints.find((breakpoint) =>
+      breakpoint.size.min
+        ? windowWidth >= breakpoint.size.min
+        : windowWidth >= breakpoint.size.base
+    ) || breakpoints[breakpoints.length - 1]
 
   const minFontSize = currentBreakpoint.fontSize?.min
   const maxFontSize = currentBreakpoint.fontSize?.max
@@ -69,7 +73,7 @@ const getScaleFontSize = (windowWidth: number) => {
   if (minFontSize) {
     size = size > minFontSize ? size : minFontSize
   }
-  
+
   if (maxFontSize) {
     size = size < maxFontSize ? size : maxFontSize
   }
@@ -94,9 +98,7 @@ export const useScaling = () => {
       htmlElement.style.fontSize = `${getScaleFontSize(viewportWidth)}px`
       htmlElement.style.setProperty('--vh', `${viewportHeight * 0.01}px`)
 
-      setDevice(
-        getDeviceType(viewportWidth)
-      )
+      setDevice(getDeviceType(viewportWidth))
     }
 
     handleWindowResize()
