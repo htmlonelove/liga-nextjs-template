@@ -1,0 +1,54 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}:latest
+  VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
+  VPS_IP: ${{ secrets.VPS_IP }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ env.VPS_IP }} $(ssh-keyscan -H ${{ env.VPS_IP }} 2>/dev/null)" >> ~/.ssh/known_hosts
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Login to GHCR on VPS
+        run: |
+          ssh ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} << EOF
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          EOF
+
+      - name: Deploy to VPS
+        run: |
+          scp docker-compose.yml ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }}:~/docker-compose.yml
+          ssh ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} << EOF
+            set -e
+            export DOCKER_IMAGE="${{ env.DOCKER_IMAGE }}"
+            echo "Pulling image: \$DOCKER_IMAGE"
+            docker compose pull || { echo "Failed to pull image"; exit 1; }
+            docker compose up -d || { echo "Failed to start container"; exit 1; }
+          EOF
+
+      - name: Configure Nginx
+        run: |
+          rsync -avz -e "ssh" ./nginx.conf ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }}:/tmp/nginx.conf
+          ssh ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} << EOF
+            sudo mv /tmp/nginx.conf /etc/nginx/sites-available/nextjs-app
+            sudo ln -sf /etc/nginx/sites-available/nextjs-app /etc/nginx/sites-enabled/
+            sudo rm -f /etc/nginx/sites-enabled/default
+            sudo systemctl restart nginx
+          EOF

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'standalone',
+  output: 'standalone',
   reactStrictMode: true,
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) =>
