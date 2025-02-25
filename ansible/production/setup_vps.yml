@@ -1,0 +1,32 @@
+- hosts: nextservers
+  gather_facts: no
+  become: yes
+  tasks: 
+    - name: Update and upgrade packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+    
+    - name: Install required packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - docker.io
+        - docker-compose-v2
+        - nginx
+    
+    - name: Enable packages
+      systemd: 
+        name: "{{item}}"
+        enabled: yes
+        state: started
+      loop:
+        - docker
+        - nginx
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes

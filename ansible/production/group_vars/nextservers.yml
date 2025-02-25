@@ -1,0 +1,4 @@
+domain: 127.0.0.1
+app_port: 3000
+ssl_cert: "path/to/"
+ssl_key: "path/to/"

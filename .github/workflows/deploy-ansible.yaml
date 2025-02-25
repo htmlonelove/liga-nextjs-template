@@ -1,0 +1,41 @@
+name: Deploy to production
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}:latest
+  VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Set up SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Run Ansible playbook to setup VPS
+        env:
+            ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          ansible-playbook -i ./ansible/production/inventory.ini ./ansible/production/setup_vps.yml -u=${{ env.VPS_USERNAME }} --private-key private_key.pem
+
+      - name: Run Ansible playbook to deploy app
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+          export DOCKER_IMAGE="${{ env.DOCKER_IMAGE }}"
+          export GITHUB_ACTOR="${{ github.actor }}"
+          export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          ansible-playbook -i ./ansible/production/inventory.ini ./ansible/production/deploy.yml -u=${{ env.VPS_USERNAME }} --private-key private_key.pem

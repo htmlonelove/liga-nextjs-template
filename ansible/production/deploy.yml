@@ -1,0 +1,42 @@
+---
+- name: Deploy Next.js app and configure Nginx
+  hosts: nextservers
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Copy docker-compose.yml to VPS
+      copy:
+        src: ./../../docker-compose.yml
+        dest: ~/docker-compose.yml
+
+    - name: Login to GHCR on VPS
+      shell: |
+        echo '{{ lookup('env', 'GITHUB_TOKEN') }}' | docker login ghcr.io -u '{{ lookup('env', 'GITHUB_ACTOR') }}' --password-stdin
+
+    - name: Pull Docker image and start containers
+      shell: |
+        set -e
+        export DOCKER_IMAGE="{{ lookup('env', 'DOCKER_IMAGE') }}"
+        docker compose -f ~/docker-compose.yml pull
+        docker compose -f ~/docker-compose.yml up -d
+      args:
+        chdir: ~
+
+    - name: Deploy Nginx config from template
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/nextjs-app
+
+    - name: Create symlink for nextjs-app
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/nextjs-app
+        dest: /etc/nginx/sites-enabled/nextjs-app
+        state: link
+      notify:
+        - Reload nginx
+
+  handlers:
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
