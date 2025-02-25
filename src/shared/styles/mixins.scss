@@ -1,98 +1,98 @@
-@import 'func';
-@import 'variables';
+@use 'func';
+@use 'variables';
 
 @mixin desktop {
-  @media (max-width: $desktop) {
+  @media (max-width: variables.$desktop) {
     @content;
   }
 }
 
 @mixin desktop-small {
-  @media (max-width: $desktop - 1px) {
+  @media (max-width: (variables.$desktop - 1px)) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (max-width: $tablet - 0.1px) {
+  @media (max-width: (variables.$tablet - 0.1px)) {
     @content;
   }
 }
 
 @mixin tablet-small {
-  @media (max-width: $tablet-small - 0.1px) {
+  @media (max-width: (variables.$tablet-small - 0.1px)) {
     @content;
   }
 }
 
 @mixin mobile-large {
-  @media (max-width: $mobile-large) {
+  @media (max-width: variables.$mobile-large) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media (max-width: $mobile) {
+  @media (max-width: variables.$mobile) {
     @content;
   }
 }
 
 @mixin desktop-only {
-  @media (min-width: $tablet) {
+  @media (min-width: variables.$tablet) {
     @content;
   }
 }
 
 @mixin retina {
-  @media (min-resolution: $retina-dpi), (min-resolution: $retina-dppx) {
+  @media (min-resolution: variables.$retina-dpi), (min-resolution: variables.$retina-dppx) {
     @content;
   }
 }
 
 @mixin h1 {
   font-weight: 400;
-  font-size: rem(96);
+  font-size: func.rem(96);
   line-height: 1.04;
 
   @include tablet-small {
-    font-size: rem(38);
+    font-size: func.rem(38);
   }
 }
 
 @mixin h2 {
   font-weight: 400;
-  font-size: rem(80);
+  font-size: func.rem(80);
   line-height: 0.9;
 
   @include tablet-small {
-    font-size: rem(32);
+    font-size: func.rem(32);
   }
 }
 
 @mixin h3 {
   font-weight: 400;
-  font-size: rem(30);
+  font-size: func.rem(30);
   line-height: 1.33;
 
   @include tablet-small {
-    font-size: rem(24);
+    font-size: func.rem(24);
   }
 }
 
 @mixin h4 {
   font-weight: 400;
-  font-size: rem(20);
+  font-size: func.rem(20);
   line-height: 1.2;
 
   @include tablet-small {
-    font-size: rem(18);
+    font-size: func.rem(18);
   }
 }
 
 @mixin text {
   font-weight: 400;
-  font-size: rem(16);
-  line-height: rem(20);
+  font-size: func.rem(16);
+  line-height: func.rem(20);
 }
 
 @mixin reset-btn {
