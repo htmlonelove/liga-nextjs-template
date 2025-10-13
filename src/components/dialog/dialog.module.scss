@@ -15,7 +15,6 @@
   background-color: rgba(#000, 0.6);
 }
 
-
 .content {
   display: flex;
   flex-direction: column;
@@ -23,9 +22,8 @@
   max-width: func.rem(400);
   padding: func.rem(20) 0;
   margin: auto;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
-
 
 .buttons {
   display: flex;

@@ -20,7 +20,7 @@
   height: auto;
   margin: 0 auto;
 
-  @include mixins.tablet-small {
+  @include mixins.vp-1023 {
     max-width: func.rem(400);
   }
 }

@@ -4,12 +4,12 @@
 
 .root {
   max-width: func.rem(1568);
-  padding-right: func.rem(64);
-  padding-left: func.rem(64);
+  padding-right: var(--pd-lg);
+  padding-left: var(--pd-lg);
   margin: 0 auto;
 
-  @include mixins.tablet-small {
-    padding-right: func.rem(20);
-    padding-left: func.rem(20);
+  @include mixins.vp-1023 {
+    padding-right: var(--pd-sm);
+    padding-left: var(--pd-sm);
   }
 }

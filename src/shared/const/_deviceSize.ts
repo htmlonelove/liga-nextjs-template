@@ -2,7 +2,7 @@ export const DeviceSize = {
   Mobile: {
     SMALL: 320,
     MEDIUM: 375,
-    LARGE: 425
+    LARGE: 480
   },
   Tablet: {
     PORTRAIT: 768,

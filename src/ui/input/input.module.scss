@@ -7,8 +7,8 @@
   height: func.rem(60);
   padding: func.rem(20);
   font-family: inherit;
-  color: var(--color-black-default);
-  background-color: var(--color-white-default);
+  color: var(--color-black);
+  background-color: var(--color-white);
   border: none;
   border-radius: func.rem(8);
   outline: none;
@@ -25,7 +25,7 @@
     -moz-appearance: textfield;
   }
 
-  @include mixins.tablet {
+  @include mixins.vp-1023 {
     height: func.rem(50);
     padding: func.rem(15) func.rem(20);
     border-radius: func.rem(8);

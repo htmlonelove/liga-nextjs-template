@@ -11,7 +11,7 @@
   font-weight: 500;
   font-size: func.rem(18);
   line-height: func.rem(20);
-  color: var(--color-white-default);
+  color: var(--color-white);
   background-color: var(--color-blue);
   cursor: pointer;
   transition: variables.$transition;
@@ -28,20 +28,20 @@
     height: func.rem(60);
     padding: func.rem(20) func.rem(50);
 
-    @include mixins.tablet {
+    @include mixins.vp-1023 {
       height: func.rem(50);
       padding: func.rem(15) func.rem(50);
     }
   }
 
   &_white {
-    color: var(--color-black-default);
-    background-color: var(--color-white-default);
+    color: var(--color-black);
+    background-color: var(--color-white);
   }
 
   &:disabled {
-    color: var(--color-black);
-    background-color: var(--color-grey-hover);
+    color: var(--color-white);
+    background-color: var(--color-east-side);
     pointer-events: none;
   }
 }
