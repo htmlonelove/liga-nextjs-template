@@ -1,18 +1,18 @@
-@use '@styles/func';
-@use '@styles/mixins';
-@use '@styles/variables';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
+@use '@styles/variables' as *;
 
 .root {
   width: 100%;
-  height: func.rem(60);
-  padding: func.rem(20);
+  height: rem(60);
+  padding: rem(20);
   font-family: inherit;
-  color: var(--color-black-default);
-  background-color: var(--color-white-default);
+  color: var(--color-black);
+  background-color: var(--color-white);
   border: none;
-  border-radius: func.rem(8);
+  border-radius: rem(8);
   outline: none;
-  transition: variables.$transition;
+  transition: $transition;
   transition-property: border-color, background-color;
 
   &::-webkit-outer-spin-button,
@@ -25,9 +25,9 @@
     -moz-appearance: textfield;
   }
 
-  @include mixins.tablet {
-    height: func.rem(50);
-    padding: func.rem(15) func.rem(20);
-    border-radius: func.rem(8);
+  @include vp-1023 {
+    height: rem(50);
+    padding: rem(15) rem(20);
+    border-radius: rem(8);
   }
 }

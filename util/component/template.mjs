@@ -1,9 +1,9 @@
 import camelcase from 'camelcase'
 
 export const scssTemplate = (componentName) => ({
-  content: `@use "@styles/func";
-@use "@styles/mixins";
-@use "@styles/variables";
+  content: `@use "@styles/func" as *;
+@use "@styles/mixins" as *;
+@use "@styles/variables" as *;
   
 .root {}
 `,

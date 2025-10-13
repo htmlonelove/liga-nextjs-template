@@ -9,7 +9,7 @@ export const useDebounce = <T>(value: T, delay: number): T => {
     const handler = setTimeout(() => {
       setDebouncedValue(value)
     }, delay)
-    
+
     return () => {
       clearTimeout(handler)
     }

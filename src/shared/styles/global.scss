@@ -1,15 +1,23 @@
-@use 'variables';
-@use 'mixins';
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'func' as *;
 
 :root {
   // colors
-  --color-white-default: #fff;
-  --color-black-default: #000;
+  // Если нет палитры от дизайнера, то для нейминга цветов используем https://www.htmlcsscolor.com/hex/334482
+  --color-white: #fff;
+  --color-black: #000;
+  --color-grey: #bbb;
   --color-transparent: rgba(255 255 255 / 0%);
 
   // project colors
   --color-blue: #2c39f2;
   --color-blue-border: #dadcfa;
+
+  // container paddings
+  --pd-lg: rem(72);
+  --pd-md: rem(48);
+  --pd-sm: rem(20);
 }
 
 * {
@@ -19,7 +27,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: $fs-default;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
@@ -32,17 +40,17 @@ body {
 }
 
 body {
-  @include mixins.text;
-  color: var(--color-black-default);
+  @include text;
+  color: var(--color-black);
   overflow-x: hidden;
 }
 
 a {
   color: currentcolor;
   text-decoration: none;
-  transition: opacity variables.$transition;
+  transition: opacity $transition;
 
-  @include mixins.desktop-only {
+  @include vp-1024 {
     &:hover,
     &:focus-visible {
       opacity: 0.7;
@@ -69,11 +77,11 @@ blockquote {
 }
 
 button {
-  @include mixins.reset-btn;
+  @include reset-btn;
 }
 
-.visually-hidden {
-  @include mixins.visually-hidden;
+.visuallyHidden {
+  @include visually-hidden;
 }
 
 #root {

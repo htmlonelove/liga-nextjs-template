@@ -1,5 +1,5 @@
-@use '@styles/func';
-@use '@styles/mixins';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
 
 .root {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .item {
-  margin-right: func.rem(12);
+  margin-right: rem(12);
 
   &:last-child {
     margin-right: 0;
@@ -16,7 +16,7 @@
 
 .link {
   display: block;
-  width: func.rem(24);
+  width: rem(24);
   line-height: 0;
 
   svg {

@@ -1,9 +1,18 @@
+@use 'func' as *;
+
+// Высота без учета bar в android, ios
+// Для устранения бага в андроид @see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+$height-100vh: calc(100 * var(--vh, 1vh));
+$fs-default: 16px;
+
 // breakpoints
-$desktop: 1280px;
-$tablet: 1024px;
-$tablet-small: 768px;
-$mobile-large: 480px;
-$mobile: 390px;
+$vp-1920: 1920px;
+$vp-1440: 1440px;
+$vp-1280: 1280px;
+$vp-1024: 1024px;
+$vp-768: 768px;
+$vp-480: 480px;
+$vp-375: 375px;
 
 // retina
 $retina-dpi: 144dpi;

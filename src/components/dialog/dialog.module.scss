@@ -1,6 +1,6 @@
-@use '@styles/func';
-@use '@styles/mixins';
-@use '@styles/variables';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
+@use '@styles/variables' as *;
 
 .root {
   position: fixed;
@@ -11,24 +11,22 @@
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  padding: func.rem(10);
+  padding: rem(10);
   background-color: rgba(#000, 0.6);
 }
-
 
 .content {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: func.rem(400);
-  padding: func.rem(20) 0;
+  max-width: rem(400);
+  padding: rem(20) 0;
   margin: auto;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
-
 
 .buttons {
   display: flex;
   justify-content: center;
-  gap: func.rem(20);
+  gap: rem(20);
 }
