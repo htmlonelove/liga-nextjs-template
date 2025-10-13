@@ -113,7 +113,7 @@ const IconExample = () => (
 При задании размеров в стилях необходимо использовать функцию `rem()`, которая импортируется из `'styles/func'`:
 
 ```scss
-@use '@styles/func';
+@use '@styles/func' as *;
 
 .element {
   width: func.rem(100);

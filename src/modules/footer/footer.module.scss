@@ -1,11 +1,11 @@
-@use '@styles/func';
-@use '@styles/mixins';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
 
 .root {
   position: relative;
   width: 100%;
-  padding-top: func.rem(24);
-  padding-bottom: func.rem(24);
+  padding-top: rem(24);
+  padding-bottom: rem(24);
   color: var(--color-white);
   background-color: var(--color-blue);
   background-position: center;

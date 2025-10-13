@@ -1,17 +1,17 @@
-@use '@styles/func';
-@use '@styles/mixins';
-@use '@styles/variables';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
+@use '@styles/variables' as *;
 
 .root {
   &_lg {
-    @include mixins.h1;
+    @include h1;
   }
 
   &_md {
-    @include mixins.h2;
+    @include h2;
   }
 
   &_sm {
-    @include mixins.h3;
+    @include h3;
   }
 }

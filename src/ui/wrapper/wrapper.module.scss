@@ -1,14 +1,14 @@
-@use '@styles/func';
-@use '@styles/mixins';
-@use '@styles/variables';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
+@use '@styles/variables' as *;
 
 .root {
-  max-width: func.rem(1568);
+  max-width: rem(1568);
   padding-right: var(--pd-lg);
   padding-left: var(--pd-lg);
   margin: 0 auto;
 
-  @include mixins.vp-1023 {
+  @include vp-1023 {
     padding-right: var(--pd-sm);
     padding-left: var(--pd-sm);
   }

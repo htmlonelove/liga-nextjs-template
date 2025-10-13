@@ -1,10 +1,10 @@
-@use '@styles/func';
-@use '@styles/mixins';
+@use '@styles/func' as *;
+@use '@styles/mixins' as *;
 
 .root {
   position: relative;
   width: 100%;
-  background-color: var(--color-white-default);
+  background-color: var(--color-white);
 
   &::after {
     z-index: 1;
@@ -13,8 +13,8 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: max(#{func.rem(2)}, 2px);
-    background-color: var(--color-blue-border);
+    height: max(#{rem(2)}, 2px);
+    background-color: var(--color-blue);
   }
 
   strong {
@@ -26,6 +26,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: func.rem(32);
-  padding-bottom: func.rem(32);
+  padding-top: rem(32);
+  padding-bottom: rem(32);
 }
