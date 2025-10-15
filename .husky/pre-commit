@@ -1,1 +1,1 @@
-yarn run check
+npx lint-staged
