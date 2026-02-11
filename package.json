@@ -53,7 +53,13 @@
     "node": ">= 20"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": ["lint", "prettier --write"],
-    "src/**/*.scss": ["stylelint", "prettier --write"]
+    "src/**/*.{ts,tsx}": [
+      "next lint --fix --file",
+      "prettier --write"
+    ],
+    "src/**/*.scss": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
   }
 }
