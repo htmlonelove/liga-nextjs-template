@@ -15,7 +15,7 @@ import { DialogProps } from './dialog.types'
 const Dialog: FC<DialogProps> = ({ className, onClose }) => {
   const rootClassName = classNames(styles.root, className)
 
-  const rootRef = useRef<HTMLDivElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null!)
   const contentRef = useRef<HTMLDivElement>(null!)
 
   useScrollLock()
