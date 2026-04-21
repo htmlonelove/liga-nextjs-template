@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "stylelint": "stylelint src/**/*.scss",
+    "typecheck": "tsc --noEmit",
     "prettier": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc",
-    "check": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc && next lint && stylelint src/**/*.scss",
+    "check": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc && next lint && stylelint src/**/*.scss && tsc --noEmit",
     "gen:component": "node ./util/component/gen-component.mjs",
     "preinstall": "npx only-allow yarn",
     "prepare": "husky"
