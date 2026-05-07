@@ -4,7 +4,7 @@
 
 Для начала работы необходимы:
 
-- **[Node.js](https://nodejs.org/en/download/prebuilt-installer)** 20 версии
+- **[Node.js](https://nodejs.org/en/download/prebuilt-installer)** 22 версии (LTS) или новее
 - Пакетный менеджер **[yarn](https://classic.yarnpkg.com/lang/en/docs/install/)** `npm install --global yarn`
 
 ## 🐱‍💻 Команды

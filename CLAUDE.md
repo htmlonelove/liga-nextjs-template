@@ -4,9 +4,10 @@
 
 ## Стек
 
-- Next.js 15 (App Router), React 19, TypeScript (strict), SCSS + CSS Modules, Jotai.
+- Next.js 16 (App Router, сборка через `--webpack`), React 19, TypeScript (strict), SCSS + CSS Modules, Jotai.
+- ESLint 9 + flat-config (`eslint.config.mjs`), `eslint-config-next/core-web-vitals`.
 - Пакетный менеджер — **только yarn** (`preinstall` запрещает npm).
-- Node ≥ 20.
+- Node ≥ 22 LTS (см. `.nvmrc`).
 
 ## Архитектура слоёв
 

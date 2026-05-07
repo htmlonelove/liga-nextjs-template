@@ -3,14 +3,14 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "stylelint": "stylelint src/**/*.scss",
     "typecheck": "tsc --noEmit",
     "prettier": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc",
-    "check": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc && next lint && stylelint src/**/*.scss && tsc --noEmit",
+    "check": "prettier -w src/**/*.{ts,tsx,scss} --config .prettierrc && eslint . && stylelint src/**/*.scss && tsc --noEmit",
     "gen:component": "node ./util/component/gen-component.mjs",
     "preinstall": "npx only-allow yarn",
     "prepare": "husky"
@@ -19,7 +19,7 @@
     "axios": "1.16.0",
     "classnames": "2.5.1",
     "jotai": "2.20.0",
-    "next": "15.5.16",
+    "next": "16.2.5",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "usehooks-ts": "3.1.1"
@@ -27,17 +27,17 @@
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",
     "@svgr/webpack": "8.1.0",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript-eslint/eslint-plugin": "^7.10.0",
-    "@typescript-eslint/parser": "^7.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
     "camelcase": "8.0.0",
     "chalk": "5.6.2",
     "cross-env": "7.0.3",
-    "eslint": "^8",
-    "eslint-config-next": "15.5.16",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "16.2.5",
+    "eslint-config-prettier": "^10.1.8",
     "glob": "10.3.16",
     "husky": "9.1.7",
     "inquirer": "9.2.22",
@@ -51,15 +51,15 @@
     "typescript": "5.7.3"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "next lint --fix --file",
+      "eslint --fix",
       "prettier --write"
     ],
     "src/**/*.scss": [
-      "stylelint --fix",
+      "stylelint --fix --allow-empty-input",
       "prettier --write"
     ]
   }
