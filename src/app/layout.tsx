@@ -6,6 +6,7 @@ import '@styles/global.scss'
 
 import localFont from 'next/font/local'
 import { Provider } from '@service/provider'
+import classNames from 'classnames'
 
 const font = localFont({
   src: [
@@ -39,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={font.className}>
+      <body className={classNames(font.className, 'loading')}>
         <Provider>
           <div id="root">
             <Header />
