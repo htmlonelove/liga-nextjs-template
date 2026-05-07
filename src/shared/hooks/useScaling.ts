@@ -48,8 +48,8 @@ const getScaleFontSize = (
         : windowWidth >= breakpoint.size.base
     ) || breakpoints[breakpoints.length - 1]
 
-  const minFontSize = currentBreakpoint.fontSize?.min
-  const maxFontSize = currentBreakpoint.fontSize?.max
+  const minFontSize = currentBreakpoint.fontSize.min
+  const maxFontSize = currentBreakpoint.fontSize.max
 
   let size =
     (windowWidth / currentBreakpoint.size.base) *
@@ -77,10 +77,6 @@ export const useScaling = ({
 
   useEffect(() => {
     const handleWindowResize = () => {
-      if (!document || !window) {
-        return
-      }
-
       const htmlElement = document.documentElement
 
       const viewportWidth = window.innerWidth

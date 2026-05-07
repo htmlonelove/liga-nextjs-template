@@ -94,7 +94,7 @@ dialog/
 
 ## Скейлинг
 
-Ширина шрифта html и тип устройства (`mobile | tablet | desktop`) устанавливаются хуком `useScaling` из `Provider`. Breakpoints лежат в `src/shared/const/`. Логика — в `src/shared/hooks/useScaling.ts` (см. JSDoc у `getScaleFontSize`).
+Ширина шрифта html и тип устройства (`mobile | tablet | desktop`) устанавливаются хуком `useScaling`, который вызывается из компонента `src/service/scaling/`. Сам `<Scaling />` рендерится внутри `Provider`. Breakpoints лежат в `src/shared/const/`. Логика — в `src/shared/hooks/useScaling.ts` (см. JSDoc у `getScaleFontSize`).
 
 ## Маршруты
 
