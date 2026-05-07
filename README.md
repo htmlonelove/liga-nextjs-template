@@ -4,7 +4,7 @@
 
 Для начала работы необходимы:
 
-- **[Node.js](https://nodejs.org/en/download/prebuilt-installer)** 20 версии
+- **[Node.js](https://nodejs.org/en/download/prebuilt-installer)** 22 версии (LTS) или новее
 - Пакетный менеджер **[yarn](https://classic.yarnpkg.com/lang/en/docs/install/)** `npm install --global yarn`
 
 ## 🐱‍💻 Команды
@@ -17,6 +17,7 @@
 | `yarn run start`         | Запустить production build                    |
 | `yarn run lint`          | Запустить линтер                              |
 | `yarn run stylelint`     | Запустить линтер стилей                       |
+| `yarn run typecheck`     | Проверить типы (`tsc --noEmit`)               |
 | `yarn run prettier`      | Фрорматировать код с настройками prettier     |
 | `yarn run check`         | Запустить проверку линтерами и форматирование |
 | `yarn run gen:component` | Утилита для создания шаблонного компонента    |
@@ -78,9 +79,98 @@
 └── ...
 ```
 
+## 🧭 Границы слоёв
+
+Слои отличаются **назначением**, а не размером. Основные правила:
+
+- **`ui/`** — безсостоятельные (stateless) визуальные примитивы без бизнес-логики. Принимают данные и колбэки через пропсы. Примеры: `Button`, `Input`, `Heading`, `Wrapper`. Знают только о себе.
+- **`components/`** — переиспользуемые компоненты, которые могут включать локальную логику/хуки, но не привязаны к конкретной странице или домену. Примеры: `Dialog`, универсальные формы, слайдеры.
+- **`modules/`** — крупные самодостаточные блоки с собственной логикой, состоянием и внутренними подкомпонентами. Используются сразу на нескольких страницах. Примеры: `Header`, `Footer`, блок авторизации.
+- **`views/`** — композиция страницы. Собирает модули/компоненты под конкретный маршрут, рендерится из `app/*/page.tsx`.
+- **`service/`** — провайдеры и системные утилиты уровня приложения (`Provider`, `Portal`).
+- **`shared/`** — переиспользуемые сущности без привязки к UI (api, atoms, hooks, types, const, styles).
+
+**Как выбрать между `components/` и `modules/`:**
+
+- Нужен внутри одного блока и не имеет внутреннего состояния → `ui/`.
+- Используется в разных местах, самодостаточен, но по-прежнему «кирпич» → `components/`.
+- Это законченный блок интерфейса со своими подкомпонентами и состоянием (шапка, футер, форма логина) → `modules/`.
+
+**Направление зависимостей строго однонаправленное:**
+
+`shared → ui → service → components → modules → views → app`
+
+Нижележащий слой **не импортирует** из вышележащих.
+
 ## 🔄 Стейт менеджмент
 
 В качестве стейт менеджера по умолчанию используется **[Jotai](https://jotai.org/)**
+
+Атомы хранятся в `src/shared/atoms/` и импортируются через алиас `@atoms/*`.
+
+Шаблон атома (см. `src/shared/atoms/deviceAtom.ts`):
+
+```typescript
+import { atom } from 'jotai'
+
+export type ThemeAtomType = 'light' | 'dark'
+
+const themeAtom = atom<ThemeAtomType>('light')
+
+// разделяем read и write атомы, чтобы компоненты подписывались только на нужное
+export const themeReadAtom = atom((get) => get(themeAtom))
+export const themeWriteAtom = atom(null, (_get, set, update: ThemeAtomType) => {
+  set(themeAtom, update)
+})
+```
+
+Использование:
+
+```typescript
+import { useAtomValue, useSetAtom } from 'jotai'
+import { themeReadAtom, themeWriteAtom } from '@atoms/themeAtom'
+
+const theme = useAtomValue(themeReadAtom)
+const setTheme = useSetAtom(themeWriteAtom)
+```
+
+## 🧩 Создание нового модуля / компонента / view
+
+Используйте генератор:
+
+```bash
+yarn run gen:component
+```
+
+Он спросит имя и попросит выбрать директорию (`ui`, `components`, `modules`, `views`) и создаст:
+
+- `name.tsx` — сам компонент
+- `name.types.ts` — типы пропсов
+- `name.module.scss` — стили
+- `index.ts` — публичный экспорт
+
+Для `views/` и `modules/` `index.ts` не добавляется в общий бочечный экспорт автоматически — их подключают напрямую через путь (`@views/home`, `@modules/header`).
+
+## 🗺 Добавление нового маршрута (страницы)
+
+1. Сгенерировать view: `yarn run gen:component` → выбрать `src/views`. Например, получится `src/views/about/`.
+2. Создать папку маршрута в App Router: `src/app/about/page.tsx`:
+
+   ```typescript
+   import type { Metadata } from 'next'
+   import { AboutView } from '@views/about'
+
+   export const metadata: Metadata = {
+     title: 'About',
+     description: 'About page'
+   }
+
+   export default function AboutPage() {
+     return <AboutView />
+   }
+   ```
+
+Страница в `app/` должна оставаться тонкой — вся разметка и композиция живут во `views/`.
 
 ## 🎴 Картинки
 
