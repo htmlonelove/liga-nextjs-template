@@ -6,14 +6,16 @@ import { useScaling } from '@/shared/hooks'
 import { isDeviceAtom } from '@atoms/deviceAtom'
 import { useAtomValue } from 'jotai'
 
+const DEVICE_BREAKPOINTS = {
+  tablet: DeviceSize.Tablet.PORTRAIT,
+  desktop: DeviceSize.Desktop.SMALL
+}
+
 export const Scaling = () => {
   const isDeviceDetected = useAtomValue(isDeviceAtom)
 
   useScaling({
-    deviceBreakpoints: {
-      tablet: DeviceSize.Tablet.PORTRAIT,
-      desktop: DeviceSize.Desktop.SMALL
-    },
+    deviceBreakpoints: DEVICE_BREAKPOINTS,
     scalingBreakpoints: SCALING_BREAKPOINTS
   })
 

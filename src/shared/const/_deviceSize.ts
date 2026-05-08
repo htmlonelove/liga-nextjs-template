@@ -6,7 +6,7 @@ export const DeviceSize = {
   },
   Tablet: {
     PORTRAIT: 768,
-    LANDSCSAPE: 1024
+    LANDSCAPE: 1024
   },
   Desktop: {
     SMALL: 1280,

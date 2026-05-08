@@ -20,6 +20,23 @@ const getDeviceType = (
   return 'desktop'
 }
 
+/**
+ * Вычисляет размер шрифта (в px) для тега html на текущей ширине вьюпорта.
+ *
+ * Массив брейкпоинтов ожидается отсортированным от большего `size.base` к меньшему.
+ * Активным считается первый брейкпоинт, у которого `windowWidth` ≥ `size.min`
+ * (если задан) либо `size.base`. Если ни один не подошёл — берётся последний
+ * (самый мелкий) как фолбэк.
+ *
+ * Размер масштабируется пропорционально: `windowWidth / size.base * fontSize.base`
+ * — так дизайн, свёрстанный на `size.base`, линейно подстраивается под текущий экран.
+ * Опциональные `fontSize.min` и `fontSize.max` ограничивают результат снизу и сверху,
+ * чтобы избежать слишком мелкого или чрезмерно крупного шрифта за пределами брейкпоинта.
+ *
+ * @param windowWidth ширина вьюпорта в px
+ * @param breakpoints конфигурация брейкпоинтов скейлинга
+ * @returns размер шрифта в px, округлённый до двух знаков
+ */
 const getScaleFontSize = (
   windowWidth: number,
   breakpoints: ScalingBreakpoint[]
@@ -31,8 +48,8 @@ const getScaleFontSize = (
         : windowWidth >= breakpoint.size.base
     ) || breakpoints[breakpoints.length - 1]
 
-  const minFontSize = currentBreakpoint.fontSize?.min
-  const maxFontSize = currentBreakpoint.fontSize?.max
+  const minFontSize = currentBreakpoint.fontSize.min
+  const maxFontSize = currentBreakpoint.fontSize.max
 
   let size =
     (windowWidth / currentBreakpoint.size.base) *
@@ -60,10 +77,6 @@ export const useScaling = ({
 
   useEffect(() => {
     const handleWindowResize = () => {
-      if (!document || !window) {
-        return
-      }
-
       const htmlElement = document.documentElement
 
       const viewportWidth = window.innerWidth
