@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",
+    "@inquirer/prompts": "8.4.3",
     "@svgr/webpack": "8.1.0",
     "@types/node": "^22",
     "@types/react": "19.2.14",
@@ -40,8 +41,6 @@
     "eslint-config-prettier": "^10.1.8",
     "glob": "10.3.16",
     "husky": "9.1.7",
-    "inquirer": "9.2.22",
-    "inquirer-file-tree-selection-prompt": "2.0.5",
     "lint-staged": "^16.4.0",
     "prettier": "3.8.3",
     "sass": "1.99.0",
